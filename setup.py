@@ -50,5 +50,6 @@ setup(
                   ["tree/pctsplitter.c"],
                   extra_compile_args=["-Zi", "/Od"],
                   extra_link_args=["-debug"],
-                  include_dirs=[numpy.get_include()]),
+                  include_dirs=[numpy.get_include()])
+    ]
 )
