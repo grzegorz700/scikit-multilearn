@@ -1,6 +1,13 @@
 # -*- coding: utf-8 -*-
-from setuptools import setup, find_packages
+from setuptools import find_packages
+try:
+    from setuptools import setup
+    from setuptools import Extension
+except ImportError:
+    from distutils.core import setup
+    from distutils.extension import Extension
 #import sphinx_pypi_upload
+import numpy
 
 setup(
     name='scikit-multilearn',
@@ -28,4 +35,20 @@ setup(
           'Topic :: Scientific/Engineering :: Information Analysis',
           'Topic :: Scientific/Engineering :: Bio-Informatics',
           ],
+    ext_modules=[
+        Extension("tree.pctcriterium",
+                  ["tree/pctcriterium.c"],
+                  extra_compile_args=["-Zi", "/Od"],
+                  extra_link_args=["-debug"],
+                  include_dirs = [numpy.get_include()]),
+        Extension("tree.utils",
+                  ["tree/utils.c"],
+                  extra_compile_args=["-Zi", "/Od"],
+                  extra_link_args=["-debug"],
+                  include_dirs=[numpy.get_include()]),
+        Extension("tree.pctsplitter",
+                  ["tree/pctsplitter.c"],
+                  extra_compile_args=["-Zi", "/Od"],
+                  extra_link_args=["-debug"],
+                  include_dirs=[numpy.get_include()]),
 )
